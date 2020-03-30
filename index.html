@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Compiled and minified CSS -->
+  <title>CoronaFriends</title>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+
+    <!-- Website Name and Topbar -->
+    <div class="topbar">
+      <h1 class="coronafriends"><b>CoronaFriends</b></h1>
+      <img src="./img/dribbble.png"
+        style="    border-radius: 100%;width: 70px;height: 70px;right: 90px;top:10px;position: absolute;">
+      <img id="profpic" class="profpic" src="/img/tempprofpic.png">
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <ul>
+        <li><a class="active" href="/index.html">Home</a></li>
+        <li><a id="login-a" class="logged-out" href="#">Login</a></li>
+        <li><a id="logout-a" class="logged-in" href="#">Log Out</a></li>
+        <li><a id="post-modal-a" class="logged-in" href="#">Post</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- PAGE -->
+  <div class="page">
+    <div class="logged-out" class="page">
+      <h3>Welcome to CoronaFriends</h3>
+      <p>Log in to get started chatting, watching, or interacting with new friends across the world.</p>
+    </div>
+
+    <h1 class="logged-in">Find a Friend</h1>
+    <div class="logged-in category-button-container-container" id="select-category">
+      <div class="category-button-container"><a class="category-button">Chat</a><span
+          class="material-icons category-button-icon">chat</span></div>
+      <div class="category-button-container"><a class="category-button">Play</a><span
+          class="material-icons category-button-icon">videogame_asset</span></div>
+      <div class="category-button-container"><a class="category-button">Watch</a><span
+          class="material-icons category-button-icon">tv</span></div>
+      <div class="category-button-container"><a class="category-button">Other</a><span
+          class="material-icons category-button-icon">assignment</span></div>
+    </div>
+
+    <div id="postings-container"></div>
+
+    <div class="postings-page-selector-container" id="postings-page-selector-container">
+      <div class="postings-page-selector">
+        <a class="postings-page-selector-child inc-dec" id="pn-">-</a>
+        <div class="postings-page-selector-child">page</div>
+        <div class="postings-page-selector-child" id="postings-pagenum"> 1 </div>
+        <a class="postings-page-selector-child inc-dec" id="pn+">+</a>
+      </div>
+      <div class="postings-page-selector">
+        <a class="postings-page-selector-child inc-dec" id="ppp-">-</a>
+        <div class="postings-page-selector-child" id="postings-numperpage"> 10 </div>
+        <div class="postings-page-selector-child">posts per page</div>
+        <a class="postings-page-selector-child inc-dec" id="ppp+">+</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="signin-modal" id="signin-modal">
+    <button class="closemodal material-icons">close</button><br>
+    <div>Sign in Google</div>
+    <div id="firebaseui-auth-container"></div>
+  </div>
+
+  <div class="post-modal" id="post-modal">
+    <button class="closemodal material-icons">close</button><br>
+    <h4>Create a Post</h4><br />
+    <form id="post-form" style="padding: 10px;">
+      <div style="text-align: left;">
+        <select id="post-form-typeselect" style="display: block;" onchange="displayQuestion(this.value)">
+          <option value="Chat">Chat</option>
+          <option value="Watch">Watch</option>
+          <option value="Play">Play</option>
+          <option value="Other">Other</option>
+        </select>
+        <br>
+        <label>
+          <input type="checkbox" onchange="displayVideoLink(this.checked)" />
+          <span>Create a google hangout?</span>
+        </label>
+        <br><br>
+
+        <label>Description</label><br>
+        <input id="post-modal-description" type="text"><br>
+        <label>Link</label><br>
+        <input id="post-modal-link" type="text"><br>
+      </div>
+      <button class="btn blue darken-2 z-depth-0">Create</button>
+    </form>
+  </div>
+
+  <script>
+    function displayQuestion(selection) {
+      document.getElementById("videochatquestionform")
+    }
+
+    function displayVideoLink(selected) {
+      if (selected) {
+        document.getElementById("post-modal-link").value = makeHangoutURL()
+        document.getElementById("post-modal-link").disabled = 'true'
+      }
+    }
+  </script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase.js"></script>
+
+  <!-- Activate Firebase and FirebaseUI(auth) -->
+  <script src="/scripts/initializeFirebase.js"></script>
+
+  <!-- Other JS Scripts -->
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+</body>
+
+</html>
